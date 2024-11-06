@@ -16,6 +16,8 @@ import cloudinary.uploader
 import cloudinary.api 
 import cloudinary.uploader
 import cloudinary.api
+import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +32,7 @@ SECRET_KEY = 'django-insecure-a9pihppxym$5v)_&2!n2d6hhvahrzv!pj$d30br+nla7i%+ak=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -60,7 +62,9 @@ MIDDLEWARE = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    'https://dupay.biz',
 ]
 
 ROOT_URLCONF = 'Transactions.urls'
@@ -84,20 +88,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Transactions.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django_cockroachdb',
         'NAME': 'dupay',
-        'USER': 'dupay',
+        'USER': 'dupay', 
         'PASSWORD': 'lPVRIuSyVCJqfmghd7ckBw',
         'HOST': 'chill-dibbler-5989.7s5.aws-ap-south-1.cockroachlabs.cloud',
         'PORT': '26257',
         'sslmode': 'disable'
     }
-    }
+}
 
 CLOUDINARY_STORAGE = {
 
@@ -153,3 +154,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+env = environ.Env() 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
