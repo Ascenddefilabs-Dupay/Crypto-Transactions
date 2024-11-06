@@ -87,11 +87,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Transactions.wsgi.application'
 
+env = environ.Env() 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 DATABASES = {
     'default': {
         'ENGINE': 'django_cockroachdb',
-        'NAME': 'dupay',
+        'NAME': env('DB_NAME'),
         'USER': 'dupay', 
         'PASSWORD': 'lPVRIuSyVCJqfmghd7ckBw',
         'HOST': 'chill-dibbler-5989.7s5.aws-ap-south-1.cockroachlabs.cloud',
@@ -155,6 +157,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-env = environ.Env() 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
